@@ -15,15 +15,7 @@ class Station
     @trains.delete(train)
   end
   
-  def show_trains(type = 'all')
-    if type == 'all'
-      "Quantity trains(#{type}): #{@trains.size}"
-    else
-       "Quantity trains(#{type}): #{train_type(type).size}"
-    end
-  end
-  
-  def train_type(type)
+  def select_trains(type)
     @trains.select { |train| train.type == type }
   end  
 end
