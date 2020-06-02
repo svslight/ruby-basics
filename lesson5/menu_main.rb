@@ -41,6 +41,8 @@ class MenuMain
     end
   end
   
+  private
+  
   # Меню блоков действий  
   def menu_stations
     actions = {
@@ -389,10 +391,8 @@ class MenuMain
           break
         end
     end
-  end 
-   
-  private
-  
+  end   
+
   # Добавить вагоны к поезду
   def add_wagon_to_train(train)
     loop do     
