@@ -67,10 +67,10 @@ class Train
     move(prev_station_index)
   end
  
-  protected 
+  private 
   
   # Данные методы не должны быть доступны "из вне" класса, 
-  # доступны только внутри данного класса (доступны подклассам) и не используются в клиентском коде.
+  # доступны только внутри данного класса (и не доступны подклассам) и не используются в клиентском коде.
  
   def next_station_index
     @current_station_index + 1 if @current_station_index && @current_station_index != @route.stations.length - 1

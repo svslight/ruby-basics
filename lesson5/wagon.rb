@@ -6,7 +6,9 @@ class Wagon
     @type = type      
     @train = nil
   end
-    
+  
+  # Область видимости методов - public и должны быть доступны "из вне" класса
+  
   def attach(train)
     @train = train
   end
