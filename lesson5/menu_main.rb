@@ -84,7 +84,7 @@ class MenuMain
       "Станции",
       "\nВведите название (новой станции) (или пункт меню)",
     ) do |result|
-            
+      
       begin
         station = Station.new(result)
       rescue => e
@@ -106,10 +106,10 @@ class MenuMain
     submenu_block(
       "Маршруты",
       "\nВведите названия (начальной и конечной станций) маршрута (или пункт меню). Доступные станции: #{verify(:@name, @stations)}",
-    ) do |result|           
+    ) do |result| 
       first_station, last_station = result.split(",")
       first_station = @stations.detect { |station| station.name == first_station }
-      last_station = @stations.detect { |station| station.name == last_station }      
+      last_station = @stations.detect { |station| station.name == last_station }
 
       if !first_station
         puts "Внимание!!! Начальной станции не существует. Повторите ввод!"
@@ -657,7 +657,7 @@ class MenuMain
   # Меню блока
   def menu_block(block_name, actions)
     actions_new = {}
-    print "\nУправление блоком #{block_name}: "   
+    print "\nУправление блоком '#{block_name}': "   
     
     actions.each.with_index(1) do |(type, count), index|
       actions_new[index] = type  
@@ -679,40 +679,35 @@ class MenuMain
     action ? action.call : menu_main
   end
   
-  # Подменю блока
+  # Подменю блока (создание)
   def submenu_block(block_name, action)
     block_items = {
       "Станции" => {
         items: @stations,
-        params: :@name, 
         block_menu: lambda { menu_stations }
       },
       "Маршруты" => {
         items: @routes,
-        params: :@number, 
         block_menu: lambda { menu_routes }
       },
       "Вагоны" => {
         items: @wagons,
-        params: :@id, 
         block_menu: lambda { menu_wagons }
       },
       "Поезда" => {
         items: @trains,
-        params: :@number, 
         block_menu: lambda { menu_trains }
       },       
     }
     
     items = block_items [block_name][:items]
-    params = block_items [block_name][:params]
     block_menu = block_items [block_name][:block_menu]   
  
     continue = nil
     loop do
       print action if action 
-      print "\n 1 - Вернуться в меню блока #{block_name}"      
-      print "\n 0 - Вернуться в главное меню"
+      print "\n 1 - Вернуться в меню блока: '#{block_name}'"      
+      print "\n 0 - Вернуться в 'Главное меню'"
       print "\n Выполните ввод: "       
 
       result = gets.chomp
