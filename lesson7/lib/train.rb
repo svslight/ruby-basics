@@ -6,25 +6,26 @@ class Train
   
   attr_accessor :speed
   attr_reader :number, :type, :wagons, :route
+  
   NUMBER_FORMAT = /^[a-z0-9]{3}-*[a-z0-9]{2}$/i.freeze
   TYPES = %w[cargo passenger].freeze
   
   @@trains = {}
   
-  def self.find(number)
-    @@trains[number]
-    #@@trains.find { |train| train.number == number }
-  end
-  
   def initialize(number, type = nil)
     @number = number
-    @type = type    
-    @speed = 0
-    @wagons = []
-    @@trains[number] = self
+    @type = type
     
     validate!
     register_instance
+        
+    @speed = 0
+    @wagons = []    
+    @@trains[number] = self 
+  end
+  
+  def self.find(number)
+    @@trains[number]
   end  
  
   def self.all
