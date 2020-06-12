@@ -7,14 +7,19 @@ class Station
   
   @@stations = {}
   
-  def initialize(name)          
+  def initialize(name)              
     @name = name
     @trains = []      
     
     validate!
     register_instance
     
-    @@stations[name] = self   
+    @@stations[name] = self 
+    # @@stations.push(self)  
+  end
+  
+  def self.each
+      @@stations.keys.each { |station| yield station }
   end
   
   def each_train

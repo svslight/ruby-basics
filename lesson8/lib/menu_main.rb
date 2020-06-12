@@ -112,11 +112,16 @@ class MenuMain
     submenu_block(
       "Станции",
       "\nДля получение общей информации по станциям (нажмите Enter)",
-    ) do |result| 
-      puts "Список станций: #{Station.all}"
-      puts "Всего создано станций: #{Station.instances}"
-    end     
-  end  
+    ) do |result|
+      
+      puts "Список станций (#{Station.instances}): #{Station.all}"      
+
+      Station.each do |station|
+        station = @stations.detect { |s| s.name == station }
+        information_stations(station)
+      end         
+    end 
+  end
  
   # Информация о станции
   def show_stations
@@ -131,20 +136,37 @@ class MenuMain
         next
       end
       
-      print "\nСписок станций: #{Station.all}"
-      print "\nИнформация о станции (#{station.name}): "    
-        
-      if station.trains.length > 0
-        typeTrain = { 'cargo' => 'грузовой', 'passenger' => 'пассажирский' }        
-        print "\nСписок поездов на станции: "
-        
-        station.each_train do |train| 
-          print "\n* поезд - #{train.number}; тип - #{typeTrain[train.type]}; кол-во вагонов - #{train.wagons.length}"
-        end         
-      else
-        puts "* на станции нет поездов..."
-      end
+      # print "\nСписок станций: #{Station.all}"
+      
+      information_stations(station)
+      
+      # print "\nИнформация о станции (#{station.name}): "    
+#         
+      # if station.trains.length > 0
+        # typeTrain = { 'cargo' => 'грузовой', 'passenger' => 'пассажирский' }        
+        # print "\nСписок поездов на станции: "
+#         
+        # station.each_train do |train| 
+          # print "\n* поезд - #{train.number}; тип - #{typeTrain[train.type]}; кол-во вагонов - #{train.wagons.length}"
+        # end         
+      # else
+        # puts "* на станции нет поездов..."
+      # end
     end
+  end
+  
+  def  information_stations(station)
+    print "\nИнформация о станции (#{station.name}): " 
+            
+    if station.trains.length > 0 
+      typeTrain = { 'cargo' => 'грузовой', 'passenger' => 'пассажирский' }        
+      print "\nСписок поездов:"            
+      station.each_train do |train|        
+        print "\n* поезд - #{train.number}; тип - #{typeTrain[train.type]}; кол-во вагонов - #{train.wagons.length}"         
+      end      
+    else
+      print "  * на станции нет поездов..."
+    end    
   end 
   
   # Создание маршрутов
