@@ -134,28 +134,13 @@ class MenuMain
       unless station
         puts "Внимание!!! Такой станции нет. Повторите ввод!"
         next
-      end
-      
-      # print "\nСписок станций: #{Station.all}"
+      end   
       
       information_stations(station)
-      
-      # print "\nИнформация о станции (#{station.name}): "    
-#         
-      # if station.trains.length > 0
-        # typeTrain = { 'cargo' => 'грузовой', 'passenger' => 'пассажирский' }        
-        # print "\nСписок поездов на станции: "
-#         
-        # station.each_train do |train| 
-          # print "\n* поезд - #{train.number}; тип - #{typeTrain[train.type]}; кол-во вагонов - #{train.wagons.length}"
-        # end         
-      # else
-        # puts "* на станции нет поездов..."
-      # end
     end
   end
   
-  def  information_stations(station)
+  def information_stations(station)
     print "\nИнформация о станции (#{station.name}): " 
             
     if station.trains.length > 0 
