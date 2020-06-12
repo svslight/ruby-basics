@@ -14,8 +14,7 @@ class Station
     validate!
     register_instance
     
-    @@stations[name] = self 
-    # @@stations.push(self)  
+    @@stations[name] = self  
   end
   
   def self.each
