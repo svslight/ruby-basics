@@ -1,10 +1,12 @@
 # frozen_string_literal: false
 
 require_relative 'instance_counter'
+require_relative 'validation'
 
 class Train
   include Manufacturer
   include InstanceCounter
+  include Validation
 
   NUMBER_FORMAT = /^[a-z0-9]{3}-*[a-z0-9]{2}$/i.freeze
   TYPES = %w[cargo passenger].freeze
@@ -13,6 +15,8 @@ class Train
   attr_reader :number, :type, :wagons, :route
 
   @@trains = {}
+  
+  validate :number, :format, NUMBER_FORMAT
 
   class << self
     def find(number)
@@ -27,8 +31,9 @@ class Train
   def initialize(number, type = nil)
     @number = number
     @type = type
-
+    
     validate!
+    validate_train!
     register_instance
 
     @speed = 0
@@ -119,8 +124,8 @@ class Train
     200
   end
 
-  def validate!
-    raise ArgumentError, 'incorrect_number_train' unless @number =~ NUMBER_FORMAT
+  def validate_train!
+    # raise ArgumentError, 'incorrect_number_train' unless @number =~ NUMBER_FORMAT
     raise ArgumentError, 'incorrect_type_train' unless TYPES.include? @type
   end
 end
