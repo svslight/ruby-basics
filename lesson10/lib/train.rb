@@ -15,12 +15,12 @@ class Train
 
   attr_accessor :speed
   attr_reader :number, :type, :wagons, :route
-  
+
   attr_accessor_with_history :drive
   strong_attr_accessor :speed_limit, String
 
   @@trains = {}
-  
+
   validate :number, :format, NUMBER_FORMAT
 
   class << self
@@ -36,7 +36,7 @@ class Train
   def initialize(number, type = nil)
     @number = number
     @type = type
-    
+
     validate!
     validate_train!
     register_instance
@@ -128,7 +128,7 @@ class Train
   def current_speed
     200
   end
-  
+
   def validate_train!
     # raise ArgumentError, 'incorrect_number_train' unless @number =~ NUMBER_FORMAT
     raise ArgumentError, 'incorrect_type_train' unless TYPES.include? @type

@@ -104,9 +104,11 @@ class MenuMain
         station = Station.new(result)
       rescue ArgumentError => e
         raise unless e.message == 'duplicate_name'
+
         puts "Внимание!!! Такая станция: #{result} уже существует.  Повторите ввод!"
       rescue ValidationError => e
         raise unless e.message == 'invalid_presence'
+
         puts 'Внимание!!! Название станции не должно быть пустым. Повторите ввод!'
       else
         @stations << station
@@ -186,9 +188,11 @@ class MenuMain
         route = Route.new(first_station, last_station)
       rescue ArgumentError => e
         raise unless e.message == 'stations_same'
+
         puts 'Внимание!!! Начальная и конечная станции маршрута не должны совпадать. Повторите ввод!'
       rescue ValidationError => e
         raise unless e.message == 'invalid_type'
+
         puts 'Станция не соответствует заданному классу'
       else
         route_exists = @routes.detect { |r| r.number == route.number }
@@ -375,9 +379,11 @@ class MenuMain
         wagon = type_wagon[type][:class_name].new(number, place.to_i)
       rescue ArgumentError => e
         raise unless e.message == 'incorrect_type_wagon'
-        puts "Введен некорректный тип вагона. Повторите, пожалуйста!"
+
+        puts 'Введен некорректный тип вагона. Повторите, пожалуйста!'
       rescue ValidationError => e
         raise unless e.message == 'invalid_presence'
+
         puts 'Номер вагона не должно быть пустым. Повторите ввод!'
       else
         @wagons << wagon
@@ -536,7 +542,8 @@ class MenuMain
         error_messages(e.message)
       rescue ValidationError => e
         raise unless e.message == 'invalid_format'
-        puts 'Введен некорректный формат (номера) поезда. Повторите ввод!'        
+
+        puts 'Введен некорректный формат (номера) поезда. Повторите ввод!'
       else
         @trains << train
         puts "Создан (#{type_train[type][:ru]}) поезд с номером: #{train.number}"
@@ -731,6 +738,7 @@ class MenuMain
           train.remove_wagon(wagon)
         rescue ArgumentError => e
           raise unless e.message == 'non_zero_speed'
+
           puts "Невозможно отцепить вагон! Поезд (#{train.number}) находится в движении, текущая скорость - #{train.speed}"
         else
           puts "Вагон (#{wagon.number}) отцеплен от поезда (#{train.number})"

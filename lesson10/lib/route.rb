@@ -8,7 +8,7 @@ class Route
   include Validation
 
   attr_reader :number, :stations, :first_station, :last_station
-  
+
   validate :first_station, :type, Station
   validate :last_station, :type, Station
 

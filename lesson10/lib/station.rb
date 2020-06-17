@@ -4,16 +4,16 @@ require_relative 'instance_counter'
 require_relative 'validation'
 
 class Station
-  include InstanceCounter  
+  include InstanceCounter
   include Validation
 
-  attr_reader :name, :trains  
-  
+  attr_reader :name, :trains
+
   @@stations = {}
-  
+
   validate :name, :presence
 
-  class << self   
+  class << self
     def each
       @@stations.each_key { |station| yield station }
     end

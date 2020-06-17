@@ -9,12 +9,11 @@ class Wagon
   include Validation
 
   TYPES = %w[cargo passenger].freeze
+  validate :number, :presence
 
   attr_reader :number, :type, :train, :free_place
 
   @@wagons = {}
-  
-  validate :number, :presence
 
   def self.all
     @@wagons.keys.join(', ')
